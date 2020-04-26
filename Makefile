@@ -1,12 +1,12 @@
 # C Makefile using gcc and gdb
 
 CC = gcc
-CFLAGS = -Wall
+CFLAGS = 
 INCLUDES = -I ./include/ -I ./lib/include
 SOURCES = ./src/*.c ./lib/src/*.c
 
 
-OUTPUT = test
+OUTPUT = team
 
 .PHONY: compile debug clean
 
