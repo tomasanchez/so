@@ -1,2 +1,1 @@
-# so
-Operating Systems - UTN
+# Operating Systems - UTN
