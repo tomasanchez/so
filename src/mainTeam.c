@@ -1,9 +1,16 @@
-#include <connTeam.h>
+#include <Team.h>
 #include <stdio.h>
+
+extern Team* this_Team;
 
 int main(void)
 {
-    char message[18];
+    puts("Hello, world!");
+    
+    return 0;
+}
+
+/*char message[18];
     int connT;
 
     db_create_client(&connT, "localhost", "4010", AF_INET, AI_PASSIVE, SOCK_STREAM);
@@ -14,6 +21,4 @@ int main(void)
     db_close_socket(connT, 2);
 
     puts(message);
-
-    return 0;
-}
+    */
