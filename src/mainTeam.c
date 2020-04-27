@@ -6,13 +6,10 @@ int main(void)
     Team squad;
     Team_create(&squad);
     Team_load_config(&squad);
-    
-    /* Segmentation fault en las commons */
     Team_load_global_objectives(&squad);
 
     puts("Hello world");
 
-    /**/
     puts(squad.global->objective);
     
     return 0;

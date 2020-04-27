@@ -2,7 +2,9 @@
 
 /**/
 t_config* get_config(){
-return config_create("/config/config.ini");
+    t_config* ret =  config_create("config/config.ini");
+    ret == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("CONFIG: LOADED FILE");
+    return ret;
 }
 
 char* get_global_objective(t_config* configurations){
