@@ -4,11 +4,11 @@
 int main(void)
 {
     Team squad;
-    Team_create(&squad);
-    Team_load_config(&squad);
-    Team_load_global_objectives(&squad);
 
-    puts("Hello world");
+    Team_Init(&squad);
+
+
+    puts("Objective: ");
 
     puts(squad.global->objective);
     

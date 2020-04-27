@@ -3,7 +3,7 @@
 /**/
 t_config* get_config(){
     t_config* ret =  config_create("config/config.ini");
-    ret == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("CONFIG: LOADED FILE");
+    ret == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("[DEBUG] Config loaded");
     return ret;
 }
 

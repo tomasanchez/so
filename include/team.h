@@ -95,7 +95,7 @@ trainer_error Objective_load(char* objective);
 void Team_create(Team* team);
 
 /*  Initializes the TEAM PROCESS    */
-Team* Team_Init();
+void Team_Init();
 
 /* Loads File Config */
 void Team_load_config( Team* team);
