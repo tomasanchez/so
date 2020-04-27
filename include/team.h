@@ -2,7 +2,7 @@
 
 #include <stdlib.h>
 #include <connTeam.h>
-#include <commons/config.h>
+#include <teamconfig.h>
 
 // Just for aesthetics
 #define WORLD_POSITION db_world_pos
@@ -41,12 +41,21 @@ typedef struct{
 
 } Objective;
 
+/* Trainer's Inventory 
+ *  Name of Pokemons in inventory
+ *  number of pokemons in inventory
+ */
+typedef struct{
+    char* its_pokemons;
+    int number_of_pokemons;
+} Inventory;
+
 /* Trainers */
 typedef struct
 {
     /*  About objective */
     Objective* personal;
-    int pokemons_in_hand;
+    Inventory* bag;
     
     /* Process Related */
     Status actual_status;
@@ -70,8 +79,8 @@ typedef struct
     t_config* team_config;
 
     /* About Team*/
-    Objective global;
     int team_size;
+    Objective* global;
     Trainer* team[];
 
 } Team;
@@ -89,7 +98,12 @@ void Team_create(Team* team);
 Team* Team_Init();
 
 /* Loads File Config */
-void Team_load_config(Team* team);
+void Team_load_config( Team* team);
 
 /* Spawns Trainers */
 void Team_create_trainers(Team* team);
+
+/* Loads global objectives */
+void Team_load_global_objectives(Team* team);
+
+char* str_objective(Team* team);

@@ -1,11 +1,19 @@
-#include <Team.h>
+#include <team.h>
 #include <stdio.h>
-
-extern Team* this_Team;
 
 int main(void)
 {
-    puts("Hello, world!");
+    Team squad;
+    Team_create(&squad);
+    Team_load_config(&squad);
+    
+    /* Segmentation fault en las commons */
+    Team_load_global_objectives(&squad);
+
+    puts("Hello world");
+
+    /**/
+    puts(squad.global->objective);
     
     return 0;
 }
