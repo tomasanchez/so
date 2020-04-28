@@ -1,7 +1,7 @@
 # C Makefile using gcc and gdb
 
 CC = gcc
-CFLAGS = 
+CFLAGS = -Wall -Wextra
 INCLUDES = -I ./include/ -I ./lib/include
 SOURCES = ./src/*.c ./lib/src/*.c
 

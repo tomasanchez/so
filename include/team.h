@@ -2,10 +2,13 @@
 
 #include <stdlib.h>
 #include <connTeam.h>
-#include <teamconfig.h>
+#include <teamLoad.h>
 
 // Just for aesthetics
 #define WORLD_POSITION db_world_pos
+
+
+/*  =============================================================   TRAINERS   =============================================================   */
 
 /*  Imported from 5 - status of process diagram  */
 typedef enum{
@@ -33,6 +36,13 @@ typedef enum{
  * 
  * Where between token '|' there are pokemons and ',' trainers
  * 
+ */
+
+/* Objectives:
+ * =================
+ * list objective
+ * number of pokemons
+ * ==================
  */
 typedef struct{
 
@@ -65,6 +75,14 @@ typedef struct
 
 } Trainer;
 
+/*  Creates a Trainer from a string */
+trainer_error Trainer_create(char* trainer);
+
+/* Loads Objectives from a string */
+trainer_error Trainer_assign_objective(char* objective);
+
+/*  =============================================================   TEAM   =============================================================   */
+
 /*  Team
  * =================
  *  config file
@@ -79,31 +97,30 @@ typedef struct
     t_config* team_config;
 
     /* About Team*/
-    int team_size;
+    unsigned int team_size;
     Objective* global;
     Trainer* team[];
 
 } Team;
 
-/*  Creates a Trainer from a string */
-trainer_error Trainer_create(char* trainer);
 
-/* Loads Objectives from a string */
-trainer_error Objective_load(char* objective);
+/*  Initializes & Creates a team the TEAM PROCESS    */
+void Team_Init(Team* team);
 
-/* Creates a team */
-void Team_create(Team* team);
-
-/*  Initializes the TEAM PROCESS    */
-void Team_Init();
+/*  Closes all team related structures */
+void Team_ShutDown(Team* this_team);
 
 /* Loads File Config */
 void Team_load_config( Team* team);
 
-/* Spawns Trainers */
-void Team_create_trainers(Team* team);
+/*  Loads & Counts Trainers */
+void Team_load_trainers(Team* team);
 
 /* Loads global objectives */
 void Team_load_global_objectives(Team* team);
 
+/* Spawns Trainers */
+void Team_create_trainers(Team* team);
+
+/* For debugging */
 char* str_objective(Team* team);

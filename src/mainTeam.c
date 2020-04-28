@@ -10,7 +10,7 @@ int main(void)
 
     puts("Objective: ");
 
-    puts(squad.global->objective);
+    puts(str_objective(&squad));
     
     return 0;
 }
