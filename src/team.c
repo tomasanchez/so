@@ -1,59 +1,35 @@
 #include <team.h>
 #include <string.h>
 
-/*  =============================================================   LOAD   =============================================================   */
+void Team_load_global_config(Team *this_team);
+void liberar_listas(Team *this_team);
 
 /* Wrapping configurations */
-void Team_load_config(Team* this_team){
+void Team_get_config(Team* this_team){
     this_team->team_config = get_config();
 }
 
-/* Loads from configuration files */
-void Team_load_global_objectives(Team* this_team){
+/* Wrapping malloc */
+Team* Team_create(void){
 
-    /*  Objective may came between []   */
-    this_team->global->objective = get_global_objective(this_team->team_config);
-
-    /* Eliminates [] if there are any */
-    this_team->global->objective = Objective_adjust(this_team->global->objective);
+    return (malloc (sizeof(Team)) );
+    
 }
 
-
-
-/*  =============================================================   TRAINERS   =============================================================   */
-
-/*  Getting traines info from configuration     
-void Team_load_trainers(Team* this_team){
-
-    this_team->team_size=get_sizeof_trainers(this_team->global->objective);
-
-
-}*/
-
-/*Assigning Trainers objectives*/
-void Team_create_trainers(Team* this_team){
-
-
-}
-
-
-/*  =============================================================   TEAM   =============================================================   */
 
 /* Initializing all Team components */
-void Team_Init(Team* this_team){
+Team * Team_Init(void){
 
-    /* Load phase */
-    Team_load_config(this_team);
-    Team_load_global_objectives(this_team);
-    //Team_load_trainers(this_team);
+    Team *this_team = Team_create();
 
-    /* Assignation phase */
-    Team_create_trainers(this_team);
+    Team_get_config(this_team);
+    Team_load_trainers_config(this_team);
+    Team_load_global_config(this_team);
 
-}
+    /* Just to test the correct liberation of the lists */
+    if (LIBERAR == 1)
+    liberar_listas(this_team);
 
-/*  =============================================================   DEBUG   =============================================================   */
+    return (this_team);
 
-char* str_objective(Team* team){
-return team->global->objective;
 }

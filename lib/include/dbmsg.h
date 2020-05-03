@@ -5,6 +5,24 @@
 
 // Para el uso de los tipos de datos uint32_t
 #include <inttypes.h>
+#include <stdbool.h>
+
+#define DEFAULT_MSG_ID       0
+#define DEFAULT_CORR_MSG_ID  0
+
+//*** Tipos de mensajes ***
+//    -----------------
+typedef enum
+{
+	UNKWNOWN = -1,
+	NEW_POCKEMON,
+	LOCALIZED_POCKEMON,
+	GET_POCKEMON,
+	APPEARD_POCKEMON,
+	CATCH_POCKEMON,
+	CAUGHT_POCKEMON,
+	SUSCRIBE
+} db_msg_type;
 
 //*** Paquete que se envia por socket ***
 //    -------------------------------
@@ -24,68 +42,60 @@ typedef struct
 
 //*** Estructura de los mensajes ***
 //    --------------------------
-struct db_msg_new
+typedef struct
 {
+	uint32_t            id;
 	db_world_pos        pos;
 	uint32_t			amount;
 	uint32_t            name_length;
 	char*               name;
-};
+}* db_msg_new_ptr;
 
-struct db_msg_localized
+typedef struct
 {
+	db_msg_type   msg_queue;
+}* db_msg_suscribe_ptr;
+
+typedef struct
+{
+	uint32_t        id;
 	uint32_t        id_corr;
 	uint32_t        name_length;
 	uint32_t        pos_length;
 	char*           name;
 	db_world_pos*   positions;
-};
+}* db_msg_localized_ptr;
 
-struct db_msg_get
+typedef struct
 {
+	uint32_t    id;
 	uint32_t    name_length;
 	char*       name;
-};
+}* db_msg_get_ptr;
 
-struct db_msg_appeard
+typedef struct
 {
+	uint32_t        id;
 	db_world_pos    pos;
 	uint32_t        name_length;
 	char*           name;
-};
+}* db_msg_appeard_ptr;
 
-struct db_msg_catch
+typedef struct
 {
+	uint32_t        id;
 	uint32_t        id_corr;
 	db_world_pos    pos;
 	uint32_t        name_length;
 	char*           name;
-};
+}* db_msg_catch_ptr;
 
-struct db_msg_caught
+typedef struct
 {
+	uint32_t    id;
 	uint32_t    id_corr;
 	uint32_t    is_caught;
-};
-
-typedef struct db_msg_new*              db_msg_new_ptr;
-typedef struct db_msg_localized*        db_msg_localized_ptr;
-typedef struct db_msg_get*              db_msg_get_ptr;
-typedef struct db_msg_appeard*          db_msg_appeard_ptr;
-typedef struct db_msg_catch*            db_msg_catch_ptr;
-typedef struct db_msg_caught*           db_msg_caught_ptr;
-
-//*** Tipos de mensajes ***
-//    -----------------
-typedef enum
-{
-	NEW_POCKEMON,
-	LOCALIZED_POCKEMON,
-	GET_POCKEMON,
-	APPEARD_POCKEMON,
-	CATCH_POCKEMON,
-	CAUGHT_POCKEMON
-} db_msg_type;
+}* db_msg_caught_ptr;
 
 /*
  * @Parametros:
@@ -119,7 +129,7 @@ void* db_deserialize_msg(const void* buffer, db_msg_type msg_type) DB_NON_NULL(1
  */
 void db_free_msg(void* msg, db_msg_type type) DB_NON_NULL(1);
 
-db_error db_package_msg(db_package* result, const void* msg, db_msg_type msg_type) DB_NON_NULL(1, 2);
+db_error db_pack_msg(db_package* result, const void* msg, db_msg_type msg_type) DB_NON_NULL(1, 2);
 /*
  * @Parametros:
  * ------------
@@ -131,7 +141,7 @@ db_error db_package_msg(db_package* result, const void* msg, db_msg_type msg_typ
  * @Retorna: un nuevo paquete de mensaje db_msg_new_ptr, o NULL en caso de error.
  * ---------
  */
-db_msg_new_ptr db_create_msg_new(const char* name, db_world_pos pos, uint32_t amount) DB_NON_NULL(1);
+db_msg_new_ptr db_create_msg_new(uint32_t id, const char* name, db_world_pos pos, uint32_t amount) DB_NON_NULL(2);
 
 /*
  * @Parametros:
@@ -145,7 +155,7 @@ db_msg_new_ptr db_create_msg_new(const char* name, db_world_pos pos, uint32_t am
  * @Retorna: un nuevo paquete de mensaje db_msg_localized_ptr, o NULL en caso de error.
  * ---------
  */
-db_msg_localized_ptr db_create_msg_localized(const char* name, db_world_pos* array_pos, uint32_t pos_length, uint32_t id_corr) DB_NON_NULL(1, 2);
+db_msg_localized_ptr db_create_msg_localized(uint32_t id, const char* name, db_world_pos* array_pos, uint32_t pos_length, uint32_t id_corr) DB_NON_NULL(2, 3);
 
 /*
  * @Parametros:
@@ -156,7 +166,7 @@ db_msg_localized_ptr db_create_msg_localized(const char* name, db_world_pos* arr
  * @Retorna: un nuevo paquete de mensaje db_msg_get_ptr, o NULL en caso de error.
  * ---------
  */
-db_msg_get_ptr db_create_msg_get(const char* name) DB_NON_NULL(1);
+db_msg_get_ptr db_create_msg_get(uint32_t id, const char* name) DB_NON_NULL(2);
 
 /*
  * @Parametros:
@@ -168,7 +178,7 @@ db_msg_get_ptr db_create_msg_get(const char* name) DB_NON_NULL(1);
  * @Retorna: un nuevo paquete de mensaje db_msg_new_ptr, o NULL en caso de error.
  * ---------
  */
-db_msg_appeard_ptr db_create_msg_appeard(const char* name, db_world_pos pos) DB_NON_NULL(1);
+db_msg_appeard_ptr db_create_msg_appeard(uint32_t id, const char* name, db_world_pos pos) DB_NON_NULL(2);
 
 /*
  * @Parametros:
@@ -180,7 +190,7 @@ db_msg_appeard_ptr db_create_msg_appeard(const char* name, db_world_pos pos) DB_
  * @Retorna: un nuevo paquete de mensaje db_msg_new_ptr, o NULL en caso de error.
  * ---------
  */
-db_msg_catch_ptr db_create_msg_catch(const char* name, db_world_pos pos) DB_NON_NULL(1);
+db_msg_catch_ptr db_create_msg_catch(uint32_t id, uint32_t id_corr, const char* name, db_world_pos pos) DB_NON_NULL(3);
 
 /*
  * @Parametros:
@@ -192,6 +202,14 @@ db_msg_catch_ptr db_create_msg_catch(const char* name, db_world_pos pos) DB_NON_
  * @Retorna: un nuevo paquete de mensaje db_msg_new_ptr, o NULL en caso de error.
  * ---------
  */
-db_msg_caught_ptr db_create_msg_caught(uint32_t is_caught, uint32_t id_corr);
+db_msg_caught_ptr db_create_msg_caught(uint32_t id, uint32_t is_caught, uint32_t id_corr);
+
+db_msg_suscribe_ptr db_create_msg_suscribe(db_msg_type msg_queue);
+
+db_world_pos db_create_world_pos(uint32_t x, uint32_t y);
+
+const char* db_msg_type_str(db_msg_type msg_type);
+
+bool db_compare_world_pos(db_world_pos pos1, db_world_pos pos2);
 
 #endif

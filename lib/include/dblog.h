@@ -3,8 +3,8 @@
 
 #include <commons/log.h>
 
-void db_init_logs(const char* file, const char* program_name, bool is_active_console, t_log_level log_level);
-void db_delete_logs(void);
+void db_init_logger(const char* file, const char* program_name, bool is_active_console, t_log_level log_level);
+void db_delete_logger(void);
 
 t_log* db_get_logger();
 

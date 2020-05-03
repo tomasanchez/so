@@ -2,13 +2,14 @@
 
 #include <stdlib.h>
 #include <connTeam.h>
-#include <teamLoad.h>
+#include <teamconfig.h>
+#include <commons/collections/list.h>
+#include <commons/string.h>
 
 // Just for aesthetics
 #define WORLD_POSITION db_world_pos
-
-
-/*  =============================================================   TRAINERS   =============================================================   */
+#define PRINT_TEST 1
+#define LIBERAR 1
 
 /*  Imported from 5 - status of process diagram  */
 typedef enum{
@@ -38,89 +39,71 @@ typedef enum{
  * 
  */
 
-/* Objectives:
- * =================
- * list objective
- * number of pokemons
- * ==================
- */
-typedef struct{
-
-    char* objective;
-    u_int32_t total_objectives;
-
-} Objective;
-
-/* Trainer's Inventory 
- *  Name of Pokemons in inventory
- *  number of pokemons in inventory
- */
-typedef struct{
-    char* its_pokemons;
-    int number_of_pokemons;
-} Inventory;
 
 /* Trainers */
 typedef struct
 {
-    /*  About objective */
-    Objective* personal;
-    Inventory* bag;
+    /*  Trainer's Inventory - Name and number of Pokemons in inventory  */
+    t_list *bag;
     
-    /* Process Related */
+    /*  About objective */   
+    t_list *personal_objective;
+    
+    /*  Process Related  */
     Status actual_status;
 
     /*  Position    */
     WORLD_POSITION actual_position;
-
 } Trainer;
 
-/*  Creates a Trainer from a string */
-trainer_error Trainer_create(char* trainer);
 
-/* Loads Objectives from a string */
-trainer_error Trainer_assign_objective(char* objective);
-
-/*  =============================================================   TEAM   =============================================================   */
 
 /*  Team
  * =================
  *  config file
  *  size of team
- *  global objective
- *  array of trainers
+ *  list of global objective
+ *  list of trainers
  * ==================
  */
 typedef struct 
 {
-    /* Configuration */
+    /* Global configurations */
     t_config* team_config;
-
-    /* About Team*/
-    unsigned int team_size;
-    Objective* global;
-    Trainer* team[];
-
+        /*  Process execution realted   */
+        u_int32_t cpu_cycle;
+        u_int32_t quantum;
+        u_int32_t initial_estimation;
+        /*  Connection related  */
+        u_int32_t reconnection_time;
+        char* broker_IP;
+        char* broker_port;
+        char* planning_algorithm;
+    /* About Team */
+    u_int32_t team_size;
+    t_list *global_objective;
+    t_list *trainers;
 } Team;
 
+/*  Creates a Trainer from a string */
+trainer_error Trainer_create(char* trainer);
 
-/*  Initializes & Creates a team the TEAM PROCESS    */
-void Team_Init(Team* team);
+/* Loads Objectives from a string */
+trainer_error Objective_load(char* objective);
 
-/*  Closes all team related structures */
-void Team_ShutDown(Team* this_team);
+/* Creates a team */
+Team * Team_create(void);
 
-/* Loads File Config */
-void Team_load_config( Team* team);
+/*  Initializes the TEAM PROCESS    */
+Team * Team_Init(void);
 
-/*  Loads & Counts Trainers */
-void Team_load_trainers(Team* team);
-
-/* Loads global objectives */
-void Team_load_global_objectives(Team* team);
+/* Loads the trainers information from File Config */
+void Team_load_trainers_config( Team* team);
 
 /* Spawns Trainers */
 void Team_create_trainers(Team* team);
 
-/* For debugging */
+/* Loads global objectives */
+void Team_load_global_objectives(Team* team);
+
 char* str_objective(Team* team);

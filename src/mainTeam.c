@@ -1,16 +1,8 @@
 #include <team.h>
-#include <stdio.h>
 
 int main(void)
 {
-    Team squad;
-
-    Team_Init(&squad);
-
-
-    puts("Objective: ");
-
-    puts(str_objective(&squad));
+    Team* squad = Team_Init ();
     
     return 0;
 }

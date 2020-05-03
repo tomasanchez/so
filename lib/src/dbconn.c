@@ -16,7 +16,7 @@ db_error db_create_server(int* result, const char* host, const char* service, in
 {
 	struct addrinfo* server_info;
 	struct addrinfo* iterator;
-	struct addrinfo hints = {0};
+	struct addrinfo hints = { 0 };
 
 	hints.ai_family = ipv;
 	hints.ai_flags = flags;
@@ -62,9 +62,8 @@ db_error db_create_server(int* result, const char* host, const char* service, in
 
 db_error db_create_client(int* result, const char* host, const char* service, int ipv, int flags, int socktype)
 {
-	struct addrinfo hints = { 0 };
 	struct addrinfo* server_info;
-	
+	struct addrinfo hints = { 0 };
 
 	hints.ai_family = ipv;
 	hints.ai_flags = flags;
