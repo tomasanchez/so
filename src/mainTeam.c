@@ -4,7 +4,7 @@ int main(void)
 {
     Team* squad = Team_Init ();
 
-    list_iterate(squad->global_objective, _imprimir_objetivos);
+    list_iterate(squad->global_objective, _print_Objective);
 
     Team_Destroy(squad);
     

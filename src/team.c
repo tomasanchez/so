@@ -1,7 +1,5 @@
-#include <team.h>
+#include "teamconfig.h"
 #include <string.h>
-
-void liberar_listas(Team *this_team);
 
 /* Wrapping configurations */
 void Team_get_config(Team* this_team){
@@ -19,11 +17,12 @@ Team * Team_Init(void){
 
     Team *this_team = Team_create();
 
+    /*  Config load & setup */
     Team_get_config(this_team);
     Team_load_trainers_config(this_team);
     Team_load_global_config(this_team);
 
-    /* Just to test the correct liberation of the lists */
+    /* Adjust global objective */
 
     return (this_team);
 
@@ -31,6 +30,9 @@ Team * Team_Init(void){
 
 void Team_Destroy(Team* this_team){
     
-    liberar_listas(this_team);
+    /* Destroying configuration parameters */
+    Team_destroy_lists(this_team);
+    Team_destroy_connections(this_team);
 
+    free(this_team);
 }

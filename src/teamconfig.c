@@ -1,19 +1,17 @@
 #include <teamconfig.h>
+#include <assert.h>
 
 #define CONFIG_PATH "config/config.ini"
-
-void liberar_listas (Team *this_team);
-
-
 
 // ============================================================================================================
 //                               ***** Función parar leer las configuraciones*****
 // ============================================================================================================
 
 t_config* get_config(){
-    t_config* ret =  config_create(CONFIG_PATH);
-    ret == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("[DEBUG] Config loaded");
-    return ret;
+    t_config* cfile =  config_create(CONFIG_PATH);
+    cfile == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("[DEBUG] Config loaded");
+    assert(cfile);
+    return cfile;
 }
 
 
@@ -92,8 +90,7 @@ free_split (trainers_obj_to_array);
 
 /* Just to test the correct reading from the configurations file to the lists */
 if (PRINT_TEST == 1)
-list_iterate(this_team->trainers, _imprimir_lista);
-
+    list_iterate(this_team->trainers, _print_Trainer_list);
 }
 
 
@@ -101,11 +98,9 @@ list_iterate(this_team->trainers, _imprimir_lista);
 //                               ***** Funciones parar liberar listas *****
 // ============================================================================================================
 
-void liberar_listas (Team *this_team){
-
-list_destroy_and_destroy_elements (this_team->trainers, _free_sub_list);
-list_destroy (this_team->global_objective);
-free (this_team);
+void Team_destroy_lists (Team *this_team){
+    list_destroy_and_destroy_elements (this_team->trainers, _trainer_destroy);
+    list_destroy (this_team->global_objective);
 }
 
 void free_split (char **string){
@@ -120,10 +115,20 @@ void _borrar_string (void *string){
 }
 
 
-void _free_sub_list (void* elemento){
-    list_destroy_and_destroy_elements ( ( (Trainer *) elemento)->personal_objective, _borrar_string);
-    list_destroy_and_destroy_elements ( ( (Trainer *) elemento)->bag, _borrar_string);
-    free (elemento);
+void _trainer_destroy (void* trainer){
+    list_destroy_and_destroy_elements ( ( (Trainer *) trainer)->personal_objective, _borrar_string);
+    list_destroy_and_destroy_elements ( ( (Trainer *) trainer)->bag, _borrar_string);
+    free (trainer);
+}
+
+// ============================================================================================================
+//                               ***** Funciones parar liberar conexiones *****
+// ============================================================================================================
+
+void Team_destroy_connections(void* this_team){
+    _borrar_string( ( (Team *) this_team)->broker_IP);
+    _borrar_string( ( (Team *) this_team)->broker_port);
+    _borrar_string( ( (Team *) this_team)->planning_algorithm);
 }
 
 
@@ -132,20 +137,20 @@ void _free_sub_list (void* elemento){
 // ============================================================================================================   
 
 
-void _imprimir_lista (void *elemento){
+void _print_Trainer_list (void *elemento){
     t_list *mochila= ( (Trainer *) elemento)->bag;
-    list_iterate (mochila,_imprimir_inventario);
+    list_iterate (mochila, _print_Pokemon_caugth);
     t_list *objetivos = ( (Trainer *) elemento)->personal_objective;
-    list_iterate (objetivos,_imprimir_objetivos);
+    list_iterate (objetivos, _print_Objective);
 }
 
 
-void _imprimir_inventario (void *elemento){     
+void _print_Pokemon_caugth (void *elemento){     
     printf ("Atrapados: %s\n",(char *)elemento);  
 }
 
 
-void _imprimir_objetivos (void *elemento){
+void _print_Objective (void *elemento){
     printf ("Objetivos: %s\n",(char *) elemento);
 }
 

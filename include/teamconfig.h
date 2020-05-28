@@ -11,17 +11,33 @@ t_config* get_config();
 /* Libera string split */
 void  free_split (char **string);
 
-/* Debug - Print */
+/* Frees a char pointer */
+void _borrar_string (void *string);
+
+// ============================================================================================================
+//                               ***** Funciones parar imprimir listas [DEBUG] *****
+// ============================================================================================================
+
 
 /* Prints List de Trainer*/
-void _imprimir_lista (void *elemento);
+void _print_Trainer_list (void *elemento);
 
 /* Prints List of Objectives    */
-void _imprimir_objetivos (void *elemento);
+void _print_Objective (void *elemento);
 
 /* Prints list of Trainers' inventory   */
-void _imprimir_inventario (void *elemento);
+void _print_Pokemon_caugth (void *elemento);
 
-void _free_sub_list (void* elemento);
-void _borrar_string (void *string);
+
+// ============================================================================================================
+//                               ***** Config Destroys *****
+// ============================================================================================================ 
+
+/* Frees a Trainer's memory */
+void _trainer_destroy (void* trainer);
+
+/* Frees, broker IP, broker port and planning algorithm*/
+void Team_destroy_connections(void* Team);
+
+
 

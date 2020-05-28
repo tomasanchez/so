@@ -9,7 +9,7 @@
 
 // Just for aesthetics
 #define WORLD_POSITION db_world_pos
-#define PRINT_TEST 1
+#define PRINT_TEST 0
 #define LIBERAR 1
 
 /*  Imported from 5 - status of process diagram  */
@@ -109,5 +109,8 @@ void Team_load_global_config(Team *this_team);
 
 /* Frees memory */
 void Team_Destroy(Team* team);
+
+/* Frees Team's list trainers and list global objective*/
+void Team_destroy_lists(Team* team);
 
 char* str_objective(Team* team);
