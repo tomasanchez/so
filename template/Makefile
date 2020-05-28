@@ -1,9 +1,10 @@
 # C Makefile using gcc and gdb
+# Tomas Agustin Sanchez <tosanchez@est.frba.utn.edu.ar>
 
 CC = gcc
-CFLAGS = -Wall
-INCLUDES = -I ./include/ ./lib/include
-SOURCES = ./src/*.c ./lib/src/*.c
+CFLAGS = -std=c18 -Werror -Wall -pedantic-errors -Wextra
+INCLUDES = -I ./inc/
+SOURCES = ./src/*.c
 
 
 OUTPUT = test
@@ -11,7 +12,7 @@ OUTPUT = test
 .PHONY: compile debug clean
 
 compile:
-	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) -lcommons -o $(OUTPUT)
+	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) -o $(OUTPUT)
 
 debug:
 	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) -g3 -o $(OUTPUT) && gdb -se $(OUTPUT)
