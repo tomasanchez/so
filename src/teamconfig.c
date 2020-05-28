@@ -1,7 +1,6 @@
 #include <teamconfig.h>
 
 #define CONFIG_PATH "config/config.ini"
-/**/
 
 void liberar_listas (Team *this_team);
 

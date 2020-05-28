@@ -1,7 +1,6 @@
 #include <team.h>
 #include <string.h>
 
-void Team_load_global_config(Team *this_team);
 void liberar_listas(Team *this_team);
 
 /* Wrapping configurations */
@@ -11,9 +10,7 @@ void Team_get_config(Team* this_team){
 
 /* Wrapping malloc */
 Team* Team_create(void){
-
-    return (malloc (sizeof(Team)) );
-    
+    return (malloc (sizeof(Team)) ); 
 }
 
 
@@ -27,9 +24,13 @@ Team * Team_Init(void){
     Team_load_global_config(this_team);
 
     /* Just to test the correct liberation of the lists */
-    if (LIBERAR == 1)
-    liberar_listas(this_team);
 
     return (this_team);
+
+}
+
+void Team_Destroy(Team* this_team){
+    
+    liberar_listas(this_team);
 
 }

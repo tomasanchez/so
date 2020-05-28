@@ -6,6 +6,7 @@
 #include <commons/collections/list.h>
 #include <commons/string.h>
 
+
 // Just for aesthetics
 #define WORLD_POSITION db_world_pos
 #define PRINT_TEST 1
@@ -104,6 +105,9 @@ void Team_load_trainers_config( Team* team);
 void Team_create_trainers(Team* team);
 
 /* Loads global objectives */
-void Team_load_global_objectives(Team* team);
+void Team_load_global_config(Team *this_team);
+
+/* Frees memory */
+void Team_Destroy(Team* team);
 
 char* str_objective(Team* team);

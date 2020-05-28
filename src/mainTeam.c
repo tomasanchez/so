@@ -3,6 +3,10 @@
 int main(void)
 {
     Team* squad = Team_Init ();
+
+    list_iterate(squad->global_objective, _imprimir_objetivos);
+
+    Team_Destroy(squad);
     
     return 0;
 }
