@@ -50,8 +50,8 @@ void Team_load_trainers_config(Team *this_team){
         entrenadores=malloc (sizeof(Trainer));
 
         char **posicion = string_split(*(pos_trainers_to_array + i), "|");
-        entrenadores->actual_position.x_pos=atoi(*posicion) ;
-        entrenadores->actual_position.y_pos=atoi(*(posicion +1) );
+        entrenadores->actual_position.x_=atoi(*posicion) ;
+        entrenadores->actual_position.y_=atoi(*(posicion +1) );
         entrenadores->actual_status= NEW;
         free (*(posicion));
         free (*(posicion+1));

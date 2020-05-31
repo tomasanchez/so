@@ -2,8 +2,8 @@
 
 CC = gcc
 CFLAGS = -Wall -Wextra
-INCLUDES = -I ./include/ -I ./lib/include
-SOURCES = ./src/*.c ./lib/src/*.c
+INCLUDES = -I ./include/
+SOURCES = ./src/*.c
 
 
 OUTPUT = team

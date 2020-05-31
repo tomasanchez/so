@@ -5,7 +5,7 @@ int main(void)
     Team* squad = Team_Init ();
 
     /*  [DEBUG] Chequeo que se cargo todo bien  */
-   // Team_print_gconfig(squad);
+    Team_print_gconfig(squad);
 
     Team_print_trainers(squad);
 

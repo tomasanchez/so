@@ -3,14 +3,23 @@
 #include <stdlib.h>
 #include <connTeam.h>
 #include <assert.h>
+#include <inttypes.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
 #include "teamconfig.h"
 
 // Just for aesthetics
-#define WORLD_POSITION db_world_pos
+#define WORLD_POSITION world_pos
 #define PRINT_TEST 0
 #define LIBERAR 1
+
+
+typedef struct vector2D_32b
+{
+	uint32_t x_;
+	uint32_t y_;
+
+} world_pos;
 
 /*  Imported from 5 - status of process diagram  */
 typedef enum{
