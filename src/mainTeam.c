@@ -4,14 +4,17 @@ int main(void)
 {
     Team* squad = Team_Init ();
 
-    list_iterate(squad->global_objective, _print_Objective);
+    /*  [DEBUG] Chequeo que se cargo todo bien  */
+   // Team_print_gconfig(squad);
+
+    Team_print_trainers(squad);
 
     Team_Destroy(squad);
-    
+
     return 0;
 }
 
-/*char message[18];
+/*  char message[18];
     int connT;
 
     db_create_client(&connT, "localhost", "4010", AF_INET, AI_PASSIVE, SOCK_STREAM);

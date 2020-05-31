@@ -3,7 +3,8 @@
 #include <commons/config.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <team.h>
+#include <string.h>
+#include "team.h"
 
 /*By default loads config.ini*/
 t_config* get_config();
@@ -28,6 +29,11 @@ void _print_Objective (void *elemento);
 /* Prints list of Trainers' inventory   */
 void _print_Pokemon_caugth (void *elemento);
 
+/* Prints global configuration fot this team*/
+void Team_print_gconfig(void* team);
+
+/* Prints all current trainers in the team  */
+void Team_print_trainers(void* team);
 
 // ============================================================================================================
 //                               ***** Config Destroys *****

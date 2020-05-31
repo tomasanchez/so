@@ -2,10 +2,10 @@
 
 #include <stdlib.h>
 #include <connTeam.h>
-#include <teamconfig.h>
+#include <assert.h>
 #include <commons/collections/list.h>
 #include <commons/string.h>
-
+#include "teamconfig.h"
 
 // Just for aesthetics
 #define WORLD_POSITION db_world_pos

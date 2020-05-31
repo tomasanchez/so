@@ -9,11 +9,10 @@
 
 t_config* get_config(){
     t_config* cfile =  config_create(CONFIG_PATH);
-    cfile == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("[DEBUG] Config loaded");
+    //cfile == NULL? puts("[ERROR] CONFIG: FILE NOT OPENED") : puts("[DEBUG] Config loaded");
     assert(cfile);
     return cfile;
 }
-
 
 // ============================================================================================================
 //                               ***** Función parar inicializar a los entrenadores *****
@@ -21,27 +20,27 @@ t_config* get_config(){
 
 void Team_load_trainers_config(Team *this_team){
 
-/*  Just for aesthetics */
-t_config *config= this_team->team_config;    
+    /*  Just for aesthetics */
+    t_config *config= this_team->team_config;    
 
-/*  Devuelve un array de strings, donde cada posición del array es del tipo posX|posY */
-char ** pos_trainers_to_array = config_get_array_value (config, "POSICIONES_ENTRENADORES"); 
+    /*  Devuelve un array de strings, donde cada posición del array es del tipo posX|posY */
+    char ** pos_trainers_to_array = config_get_array_value (config, "POSICIONES_ENTRENADORES"); 
 
-/*  Devuelven un array de strings, donde cada posición del array es del tipo pok1|pok2|pok3...pokN*/
-char ** pok_in_bag_to_array   = config_get_array_value (config, "POKEMON_ENTRENADORES");  
-char ** trainers_obj_to_array = config_get_array_value (config, "OBJETIVOS_ENTRENADORES");
+    /*  Devuelven un array de strings, donde cada posición del array es del tipo pok1|pok2|pok3...pokN*/
+    char ** pok_in_bag_to_array   = config_get_array_value (config, "POKEMON_ENTRENADORES");  
+    char ** trainers_obj_to_array = config_get_array_value (config, "OBJETIVOS_ENTRENADORES");
 
-/*  Creo lista de entrenadores que va a manejar el Team  */
+    /*  Creo lista de entrenadores que va a manejar el Team  */
 
-this_team->trainers = list_create();
+    this_team->trainers = list_create();
 
-/*  Creo la lista de objetivos globales que va a manejar el Team */
+    /*  Creo la lista de objetivos globales que va a manejar el Team */
 
-this_team->global_objective = list_create ();
+    this_team->global_objective = list_create ();
 
-/*  Creo un puntero a estructura del tipo Trainer para ir creando cada entrenador leído por archivo de configuración. 
-    Estas estructuras se van apuntando en nodos de una lista definida en la estructura del Team como t_list *trainers     */
-Trainer *entrenadores;
+    /*  Creo un puntero a estructura del tipo Trainer para ir creando cada entrenador leído por archivo de configuración. 
+        Estas estructuras se van apuntando en nodos de una lista definida en la estructura del Team como t_list *trainers     */
+    Trainer *entrenadores;
 
 
 /* -------------- From configuration file to list --------------------- */ 
@@ -138,47 +137,56 @@ void Team_destroy_connections(void* this_team){
 
 
 void _print_Trainer_list (void *elemento){
+    puts("\n--TRAINER--");
     t_list *mochila= ( (Trainer *) elemento)->bag;
     list_iterate (mochila, _print_Pokemon_caugth);
     t_list *objetivos = ( (Trainer *) elemento)->personal_objective;
     list_iterate (objetivos, _print_Objective);
+    puts("--END--");
 }
 
 
 void _print_Pokemon_caugth (void *elemento){     
-    printf ("Atrapados: %s\n",(char *)elemento);  
+    printf ("Atrapado: %s\n",(char *)elemento);  
 }
 
 
 void _print_Objective (void *elemento){
-    printf ("Objetivos: %s\n",(char *) elemento);
+    printf ("Objetivo: %s\n",(char *) elemento);
 }
 
+void Team_print_gconfig(void* this_team){
+    puts ("\n========================= GLOBAL CONFIGURATION ==============================");
+    printf ("TIEMPO_RECONEXION= %d\n", ((Team *) this_team)->reconnection_time );
+    printf ("RETARDO_CICLO_CPU= %d\n",((Team *) this_team)->cpu_cycle);
+    printf ("ALGORITMO_PLANIFICACION= %s\n",((Team *) this_team)->planning_algorithm);
+    printf ("QUANTUM= %d\n",((Team *) this_team)->quantum);
+    printf ("ESTIMACION_INICIAL= %d\n",((Team *) this_team)->initial_estimation);
+    printf ("IP_BROKER= %s\n", ((Team *) this_team)->broker_IP);
+    printf ("PUERTO_BROKER= %s\n", ((Team *) this_team)->broker_port);
+    puts("=============================================================================");
+
+}
+void Team_print_trainers(void* element){
+
+    puts("\n========================= Trainer CONFIGURATION ==============================");
+    list_iterate( ((Team *) element)->trainers, _print_Trainer_list);
+    puts("=============================================================================");
+
+}
 // ============================================================================================================
 //                               ***** Función parar cargar las configuraciones globales *****
 // ============================================================================================================
 
 void Team_load_global_config(Team *this_team){
 
-this_team->reconnection_time      = config_get_int_value(this_team->team_config, "TIEMPO_RECONEXION");
-this_team->cpu_cycle              = config_get_int_value(this_team->team_config, "RETARDO_CICLO_CPU");
-this_team->planning_algorithm     = config_get_string_value(this_team->team_config, "ALGORITMO_PLANIFICACION");
-this_team->quantum                = config_get_int_value(this_team->team_config, "QUANTUM");
-this_team->initial_estimation     = config_get_int_value(this_team->team_config, "ESTIMACION_INICIAL");
-this_team->broker_IP              = config_get_string_value(this_team->team_config, "IP_BROKER");
-this_team->broker_port            = config_get_string_value(this_team->team_config, "PUERTO_BROKER");
+    this_team->reconnection_time      = config_get_int_value(this_team->team_config, "TIEMPO_RECONEXION");
+    this_team->cpu_cycle              = config_get_int_value(this_team->team_config, "RETARDO_CICLO_CPU");
+    this_team->planning_algorithm     = strcpy(this_team->planning_algorithm, config_get_string_value(this_team->team_config, "ALGORITMO_PLANIFICACION"));
+    this_team->quantum                = config_get_int_value(this_team->team_config, "QUANTUM");
+    this_team->initial_estimation     = config_get_int_value(this_team->team_config, "ESTIMACION_INICIAL");
+    this_team->broker_IP              = strcpy(this_team->broker_IP, config_get_string_value(this_team->team_config, "IP_BROKER"));
+    this_team->broker_port            = strcpy(this_team->broker_port, config_get_string_value(this_team->team_config, "PUERTO_BROKER"));
 
-/* Just to test the correct reading from the configurations file to the globals configurations*/
-if (PRINT_TEST == 1){
-puts ("\n\n\nShowing the global configurations:");
-printf ("TIEMPO_RECONEXION= %d\n",this_team->reconnection_time );
-printf ("RETARDO_CICLO_CPU= %d\n",this_team->cpu_cycle);
-printf ("ALGORITMO_PLANIFICACION= %s\n",this_team->planning_algorithm);
-printf ("QUANTUM= %d\n",this_team->quantum);
-printf ("ESTIMACION_INICIAL= %d\n",this_team->initial_estimation);
-printf ("IP_BROKER= %s\n", this_team->broker_IP);
-printf ("PUERTO_BROKER= %s\n", this_team->broker_port);
-}
-
-config_destroy (this_team->team_config);   
+    config_destroy (this_team->team_config);   
 }

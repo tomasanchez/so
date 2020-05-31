@@ -1,5 +1,6 @@
-#include "teamconfig.h"
-#include <string.h>
+#include "team.h"
+
+#define STR_SIZE 15
 
 /* Wrapping configurations */
 void Team_get_config(Team* this_team){
@@ -8,7 +9,14 @@ void Team_get_config(Team* this_team){
 
 /* Wrapping malloc */
 Team* Team_create(void){
-    return (malloc (sizeof(Team)) ); 
+    Team* this_team = malloc (sizeof(Team));
+    
+    /* Supongo Un maximo de 15 characters para esto*/
+    this_team->broker_IP = malloc(sizeof(char) * STR_SIZE);
+    this_team->broker_port = malloc(sizeof(char) * STR_SIZE);
+    this_team->planning_algorithm = malloc(sizeof(char) * STR_SIZE);
+
+    return this_team;
 }
 
 
