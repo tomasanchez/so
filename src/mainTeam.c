@@ -1,8 +1,11 @@
 #include <team.h>
 
+/* Un solo Team por Proceso */
+static Team* squad;
+
 int main(void)
 {
-    Team* squad = Team_Init ();
+    squad = Team_Init ();
 
     /*  [DEBUG] Chequeo que se cargo todo bien  */
     Team_print_gconfig(squad);

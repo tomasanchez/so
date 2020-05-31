@@ -13,7 +13,7 @@
 #define PRINT_TEST 0
 #define LIBERAR 1
 
-
+/*  Position Vector of 32 bit    */
 typedef struct vector2D_32b
 {
 	uint32_t x_;
@@ -22,24 +22,13 @@ typedef struct vector2D_32b
 } world_pos;
 
 /*  Imported from 5 - status of process diagram  */
-typedef enum{
+typedef enum thread_status{
     NEW,
     READY,
     BLOCKED,
     EXECUTING,
     EXIT
 } Status;
-
-/* Error list for debugging */
-typedef enum{
-    TRAINER_CREATED,
-    TRAINER_CREATION_FAILED,
-    TRAINER_DELETED,
-    TRAINER_DELETION_FAILED,
-    TRAINER_OBJECTIVES,
-    TRAINER_NO_OBJECTIVES
-} trainer_error;
-
 
 /* Objectives come as:
  *
@@ -51,21 +40,21 @@ typedef enum{
 
 
 /* Trainers */
-typedef struct
+typedef struct trainer_list
 {
     /*  Trainer's Inventory - Name and number of Pokemons in inventory  */
-    t_list *bag;
+    t_list* bag;
     
     /*  About objective */   
-    t_list *personal_objective;
+    t_list* personal_objective;
     
     /*  Process Related  */
     Status actual_status;
+    uint32_t thread_id;
 
     /*  Position    */
     WORLD_POSITION actual_position;
 } Trainer;
-
 
 
 /*  Team
@@ -76,7 +65,7 @@ typedef struct
  *  list of trainers
  * ==================
  */
-typedef struct 
+typedef struct process_team
 {
     /* Global configurations */
     t_config* team_config;
@@ -95,17 +84,11 @@ typedef struct
     t_list* trainers;
 } Team;
 
-/*  Creates a Trainer from a string */
-trainer_error Trainer_create(char* trainer);
-
-/* Loads Objectives from a string */
-trainer_error Objective_load(char* objective);
-
 /* Creates a team */
-Team * Team_create(void);
+Team* Team_create(void);
 
 /*  Initializes the TEAM PROCESS    */
-Team * Team_Init(void);
+Team* Team_Init(void);
 
 /* Loads the trainers information from File Config */
 void Team_load_trainers_config( Team* team);

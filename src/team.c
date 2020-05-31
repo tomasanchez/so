@@ -30,7 +30,9 @@ Team * Team_Init(void){
     Team_load_trainers_config(this_team);
     Team_load_global_config(this_team);
 
-    /* Adjust global objective */
+    /* Threads Treatment */
+    //Team_spawn_Trainer();
+
 
     return (this_team);
 
