@@ -81,18 +81,18 @@ typedef struct
     /* Global configurations */
     t_config* team_config;
         /*  Process execution realted   */
-        u_int32_t cpu_cycle;
-        u_int32_t quantum;
-        u_int32_t initial_estimation;
+        uint32_t cpu_cycle;
+        uint32_t quantum;
+        uint32_t initial_estimation;
         /*  Connection related  */
-        u_int32_t reconnection_time;
+        uint32_t reconnection_time;
         char* broker_IP;
         char* broker_port;
         char* planning_algorithm;
     /* About Team */
-    u_int32_t team_size;
-    t_list *global_objective;
-    t_list *trainers;
+    uint32_t team_size;
+    t_list* global_objective;
+    t_list* trainers;
 } Team;
 
 /*  Creates a Trainer from a string */
