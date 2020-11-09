@@ -11,7 +11,6 @@ static inline t_config* abrir_config(){
     return cfile;
 }
 
-
 void Config_cargar_configs(Config_t * esta_config){
     
     if(VERBOSE)
@@ -34,7 +33,6 @@ void Config_cargar_configs(Config_t * esta_config){
     puts("[Init/Config_cargar_configs] t_config eliminado.");
 }
 
-
 void Config_puts(Config_t * config){
     puts ("\n========================= CONFIGURATION ==============================");
     printf ("TIEMPO_RECONEXION= %d\n", config->reconexion);
@@ -46,10 +44,10 @@ void Config_puts(Config_t * config){
     puts("=============================================================================");
 }
 
-
 // ============================================================================================================
 //                               ***** Función parar Crear y Destruir las configuraciones*****
 // ============================================================================================================
+
 Config_t * Config_Create(){
 
     // Malloc correspondiente
