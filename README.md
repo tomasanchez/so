@@ -2,12 +2,16 @@
 
 ## About
 
-This was used for a final project needed in order to aprove course "Sistemas Operativos" - K08 in Universidad Tecnologica Nacional.
+This repository contains notes, examples, problems resolutions made for Operatin Systems Course at Universidad Tecnólogica Nacional, K08.
 
 ## Content
 
 - Premake 5 template
 - Makefile template
+- TP0
+- Delibird
+  - GameCard
+  - Team
 
 ## License
 
