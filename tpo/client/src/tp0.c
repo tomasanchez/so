@@ -11,12 +11,12 @@ int main(void)
 {
 	/*---------------------------------------------------PARTE 2-------------------------------------------------------------*/
 	int conexion;
-	char* ip;
-	char* puerto;
-	char* valor;
+	char *ip;
+	char *puerto;
+	char *valor;
 
-	t_log* logger;
-	t_config* config;
+	t_log *logger;
+	t_config *config;
 
 	logger = iniciar_logger();
 
@@ -29,7 +29,6 @@ int main(void)
 	//Loggear valor de config
 
 	leer_consola(logger);
-
 
 	/*---------------------------------------------------PARTE 3-------------------------------------------------------------*/
 
@@ -44,37 +43,31 @@ int main(void)
 	terminar_programa(conexion, logger, config);
 }
 
-t_log* iniciar_logger(void)
+t_log *iniciar_logger(void)
 {
-
 }
 
-t_config* leer_config(void)
+t_config *leer_config(void)
 {
-
 }
 
-void leer_consola(t_log* logger)
+void leer_consola(t_log *logger)
 {
-	char* leido;
+	char *leido;
 
 	//El primero te lo dejo de yapa
 	leido = readline(">");
-
-
 }
 
 void paquete(int conexion)
 {
 	//Ahora toca lo divertido!
 
-	char* leido;
-	t_paquete* paquete;
-
-
+	char *leido;
+	t_paquete *paquete;
 }
 
-void terminar_programa(int conexion, t_log* logger, t_config* config)
+void terminar_programa(int conexion, t_log *logger, t_config *config)
 {
 	//Y por ultimo, para cerrar, hay que liberar lo que utilizamos (conexion, log y config) con las funciones de las commons y del TP mencionadas en el enunciado
 }
