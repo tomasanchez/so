@@ -7,7 +7,7 @@
 
 #include "tp0.h"
 
-int main(void)
+int notMain(void)
 {
 	/*---------------------------------------------------PARTE 2-------------------------------------------------------------*/
 	int conexion;
@@ -56,7 +56,7 @@ void leer_consola(t_log *logger)
 	char *leido;
 
 	//El primero te lo dejo de yapa
-	leido = readline(">");
+	//leido = readline(">");
 }
 
 void paquete(int conexion)
