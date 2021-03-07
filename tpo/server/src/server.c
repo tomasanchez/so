@@ -1,15 +1,21 @@
-/*
- * servidor.c
- *
- *  Created on: 3 mar. 2019
- *      Author: utnso
+/**
+ * server.c
+ * 
+ * Main server.
+ * 
+ * @file This file describes the server main function.
+ * @author Tomás A. Sánchez
+ * @since 03.07.2021
  */
 
-#include "servidor.h"
+#include "server.h"
+
+// Global logger structure
+t_log *logger;
 
 int main(void)
 {
-	void iterator(char* value)
+	void iterator(char *value)
 	{
 		printf("%s\n", value);
 	}
@@ -20,11 +26,11 @@ int main(void)
 	log_info(logger, "Servidor listo para recibir al cliente");
 	int cliente_fd = esperar_cliente(server_fd);
 
-	t_list* lista;
-	while(1)
+	t_list *lista;
+	while (1)
 	{
 		int cod_op = recibir_operacion(cliente_fd);
-		switch(cod_op)
+		switch (cod_op)
 		{
 		case MENSAJE:
 			recibir_mensaje(cliente_fd);
@@ -32,7 +38,7 @@ int main(void)
 		case PAQUETE:
 			lista = recibir_paquete(cliente_fd);
 			printf("Me llegaron los siguientes valores:\n");
-			list_iterate(lista, (void*) iterator);
+			list_iterate(lista, (void *)iterator);
 			break;
 		case -1:
 			log_error(logger, "el cliente se desconecto. Terminando servidor");
