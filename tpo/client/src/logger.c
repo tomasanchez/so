@@ -10,13 +10,13 @@
 
 #include "logger.h"
 
+// LOG_PATH the path of log file
+#define LOG_PATH "log/tp0.log"
+// APP_NAME the application name
+#define APP_NAME "TP-0"
+
 t_log *logger_init(void)
 {
-    // lv_path the file path
-    char *lv_path = "log/tp0.log",
-         // lv_app_name the application name
-        *lv_app_name = "TP-0";
-
     //lv_is_active_console if console is Active
     int lv_is_active_console = true;
 
@@ -24,7 +24,7 @@ t_log *logger_init(void)
     t_log_level lv_log_level = LOG_LEVEL_INFO;
 
     //es_logger the logger object
-    t_log *es_logger = log_create(lv_path, lv_app_name, lv_is_active_console, lv_log_level);
+    t_log *es_logger = log_create(LOG_PATH, APP_NAME, lv_is_active_console, lv_log_level);
     assert(es_logger != NULL);
     return es_logger;
 }
