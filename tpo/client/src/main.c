@@ -12,9 +12,9 @@
 
 int main(void)
 {
-    t_log *ls_logger = logger_init();
-    log_info(ls_logger, "Hello my love");
-    log_destroy(ls_logger);
-
+    logger_start();
+    config_options_t ls_config = config_options_init();
+    config_options_finish(&ls_config);
+    logger_end();
     return 0;
 }

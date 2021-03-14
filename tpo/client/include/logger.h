@@ -14,10 +14,17 @@
 #include <commons/log.h>
 
 /**
- * Creates a logger.
+ * Starts logger.
  * 
  * @function
  * @public
- * @return {t_log *} a new logger pointer
  */
-t_log *logger_init(void);
+void logger_start(void);
+
+/**
+ * Ends cycle of logger.
+ * 
+ * @function
+ * @public
+ */
+void logger_end(void);
