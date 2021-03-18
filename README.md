@@ -8,7 +8,7 @@ This repository contains notes, examples, problems resolutions made for Operatin
 
 - Premake 5 template
 - Makefile template
-- [TP0](./tpo/client/README.md)
+- [TP0](./tp0/client/README.md)
 - Delibird
   - GameCard
   - Team
