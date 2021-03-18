@@ -21,7 +21,7 @@
 // The VALUE key in file
 #define VALUE_KEY "VALUE"
 // CONFIG_PATH the config file path
-#define CONFIG_PATH "config/config.ini"
+#define CONFIG_PATH "config/config.cfg"
 // STR_SIZE a standard size for configurations strings
 #define STR_SIZE 32
 
