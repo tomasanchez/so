@@ -4,7 +4,7 @@
 
 CC = gcc
 CFLAGS = -Wall -Wextra -g3
-LIBS = -lcommons
+LIBS = -lcommons -lreadline
 INCLUDES = -I ./include/
 SOURCES = ./src/*.c
 
