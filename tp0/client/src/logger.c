@@ -35,13 +35,13 @@ t_log *gs_logger;
  * @private
  * @return {t_log *} a new logger pointer
  */
-t_log *logger_init(void);
+static t_log *logger_init(void);
 
 // ============================================================================================================
 //                               ***** Private Functions Definitions *****
 // ============================================================================================================
 
-t_log *logger_init(void)
+static t_log *logger_init(void)
 {
     //lv_is_active_console if console is Active
     int lv_is_active_console = true;
@@ -65,7 +65,7 @@ bool logger_console_log(void)
     bool ev_is_empty = false;
 
     // Local Variable line - the input line from console
-    char *lv_line = readline(":: >>>");
+    char *lv_line = readline(">>> ");
 
     ev_is_empty = strcmp(lv_line, EMPTY_STR) ? false : true;
 

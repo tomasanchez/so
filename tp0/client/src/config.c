@@ -38,7 +38,7 @@
  * @private
  * @returns es_config the allocated config optios.
  */
-config_options_t config_options_create(void);
+static config_options_t config_options_create(void);
 
 /**
  * Reads configuration file.
@@ -47,7 +47,7 @@ config_options_t config_options_create(void);
  * @private
  * @param is_config the configuration option
  */
-void config_options_load(config_options_t *);
+static void config_options_load(config_options_t *);
 
 /**
  * Prints the loaded configuration
@@ -56,13 +56,13 @@ void config_options_load(config_options_t *);
  * @private
  * @param is_config the configuration option
  */
-void config_options_print(const config_options_t *);
+static void config_options_print(const config_options_t *);
 
 // ============================================================================================================
 //                               ***** Private Functions Definitions *****
 // ============================================================================================================
 
-config_options_t config_options_create(void)
+static config_options_t config_options_create(void)
 {
     //Exporting Structure config options
     config_options_t es_config;
@@ -79,7 +79,7 @@ config_options_t config_options_create(void)
     return es_config;
 }
 
-void config_options_load(config_options_t *is_config)
+static void config_options_load(config_options_t *is_config)
 {
     // Config file read
     is_config->ip = strcpy(is_config->ip, config_get_string_value(is_config->config, IP_KEY));
@@ -90,7 +90,7 @@ void config_options_load(config_options_t *is_config)
     config_destroy(is_config->config);
 }
 
-void config_options_print(const config_options_t *is_config)
+static void config_options_print(const config_options_t *is_config)
 {
     puts("\n========================= GLOBAL CONFIGURATION ==============================");
     printf("IP= %s\n", is_config->ip);
