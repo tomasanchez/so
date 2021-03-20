@@ -27,8 +27,6 @@ typedef struct Config
 {
     // t_config the configuration file
     t_config *config;
-    // connection the connection status
-    int connection;
     // ip the IP to connect
     char *ip;
     // port the port where to listen

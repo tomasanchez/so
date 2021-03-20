@@ -14,3 +14,23 @@
 #include <string.h>
 #include "logger.h"
 #include "config.h"
+
+/**
+ * 
+ * Initialices the Client program.
+ * 
+ * @function
+ * @returns 0 if client started successfully
+ * @public
+ */
+int client_start(void);
+
+/**
+ * 
+ * Finishes the Client program.
+ * 
+ * @function
+ * @returns 0 if client ended successfully
+ * @public
+ */
+int client_end(void);

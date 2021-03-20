@@ -12,9 +12,7 @@
 
 int main(void)
 {
-    logger_start();
-    config_options_t ls_config = config_options_init();
-    config_options_finish(&ls_config);
-    logger_end();
+    client_start();
+    client_end();
     return 0;
 }
