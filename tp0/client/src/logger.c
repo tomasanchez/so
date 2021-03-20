@@ -81,7 +81,6 @@ void logger_start(void)
 {
     gs_logger = logger_init();
     log_debug(gs_logger, "Initialiazing Program...");
-    logger_console_log();
 }
 
 void logger_end(void)

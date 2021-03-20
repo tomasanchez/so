@@ -26,6 +26,8 @@ typedef struct Client
     config_options_t config_options;
     // connection - the connection status
     int connection;
+    // running - if is runnig
+    bool running;
 
 } client_t;
 
@@ -60,6 +62,8 @@ static int client_init(void)
 {
     // As it is not connected at start
     gs_program.connection = 0;
+    // At first is runnig
+    gs_program.running = true;
     gs_program.config_options = config_options_init();
 
     return 0;
@@ -74,7 +78,7 @@ static int client_finish(void)
 //                               ***** Public Functions Definitions *****
 // ============================================================================================================
 
-int client_start()
+int client_start(void)
 {
     logger_start();
     client_init();
@@ -82,7 +86,17 @@ int client_start()
     return 0;
 }
 
-int client_end()
+bool client_is_running(void)
+{
+    return gs_program.running;
+}
+
+void client_read(void)
+{
+    gs_program.running = !logger_console_log();
+}
+
+int client_end(void)
 {
     client_finish();
     logger_end();

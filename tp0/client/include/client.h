@@ -16,7 +16,6 @@
 #include "config.h"
 
 /**
- * 
  * Initialices the Client program.
  * 
  * @function
@@ -27,6 +26,23 @@ int client_start(void);
 
 /**
  * 
+ * Wheter the program continues running
+ * 
+ * @function
+ * @returns true while no empty input string
+ * @public
+ */
+bool client_is_running(void);
+
+/**
+ * Reads a line from console
+ * 
+ * @function
+ * @public
+ */
+void client_read(void);
+
+/**
  * Finishes the Client program.
  * 
  * @function
