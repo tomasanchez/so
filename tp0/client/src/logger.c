@@ -18,6 +18,8 @@
 #define LOG_PATH "log/tp0.log"
 // APP_NAME the application name
 #define APP_NAME "TP-0"
+// EMPTY STR an Empty String
+#define EMPTY_STR ""
 
 // Global Structure logger
 t_log *gs_logger;
@@ -45,7 +47,7 @@ t_log *logger_init(void)
     int lv_is_active_console = true;
 
     //lv_log_level the lowest level of log to be logged
-    t_log_level lv_log_level = LOG_LEVEL_INFO;
+    t_log_level lv_log_level = LOG_LEVEL_DEBUG;
 
     //es_logger the logger object
     t_log *es_logger = log_create(LOG_PATH, APP_NAME, lv_is_active_console, lv_log_level);
@@ -57,13 +59,35 @@ t_log *logger_init(void)
 //                               ***** Public Functions Definitions *****
 // ============================================================================================================
 
+bool logger_console_log(void)
+{
+    // Exporting Variable End - is end of program?
+    bool ev_is_empty = false;
+
+    // Local Variable line - the input line from console
+    char *lv_line = readline(":: >>>");
+
+    ev_is_empty = strcmp(lv_line, EMPTY_STR) ? false : true;
+
+    if (!ev_is_empty)
+        log_info(gs_logger, lv_line);
+
+    free(lv_line);
+
+    return ev_is_empty;
+}
+
 void logger_start(void)
 {
     gs_logger = logger_init();
-    log_info(gs_logger, "Hello, I'm a logger.");
+    log_debug(gs_logger, "Initialiazing Program...");
+    logger_console_log();
 }
 
 void logger_end(void)
 {
+    log_debug(gs_logger, "Ending: success");
+    rl_clear_history();
+    clear_history();
     log_destroy(gs_logger);
 }
