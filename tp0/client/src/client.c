@@ -9,6 +9,7 @@
  */
 
 #include "client.h"
+#include "connection.h"
 
 // ============================================================================================================
 //                               ***** Logger Definitions *****
@@ -32,11 +33,12 @@ typedef struct Client
 } client_t;
 
 // Global Structure Program - the client program itself.
-client_t gs_program;
+static client_t gs_program;
 
 // ============================================================================================================
 //                               ***** Private Functions Declarations *****
 // ============================================================================================================
+
 /**
  * Initializes the client structure.
  * 
@@ -45,6 +47,15 @@ client_t gs_program;
  * @returns 0 if client initialized succesfully
  */
 static int client_init(void);
+
+/**
+ * Connects client to server.
+ * 
+ * @function
+ * @private
+ * @returns  if client's socket created succesfully
+ */
+static bool client_connect(void);
 
 /**
  * Frees memory utilized by client
@@ -67,6 +78,12 @@ static int client_init(void)
     gs_program.config_options = config_options_init();
 
     return 0;
+}
+
+static bool client_connect(void)
+{
+    gs_program.connection = connect_to(gs_program.config_options.ip, gs_program.config_options.port);
+    return gs_program.connection > 0;
 }
 
 static int client_finish(void)
