@@ -24,3 +24,14 @@
  * @returns ev_socket_client - the file descriptor or -1 if error
  */
 int connect_to(char *, char *);
+
+/**
+ * Sends a message to that socket
+ * 
+ * @function
+ * @public
+ * @param iv_message the stream to be sent
+ * @param iv_socket the socket file descriptor
+ * @returns the amount of bytes sent
+ */
+ssize_t send_message(char *, int);
