@@ -13,10 +13,12 @@
 int main(void)
 {
     client_start();
+
     while (client_is_running())
     {
         client_read();
     }
+
     client_end();
     return 0;
 }
