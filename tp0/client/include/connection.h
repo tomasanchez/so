@@ -26,6 +26,14 @@
 int connect_to(char *, char *);
 
 /**
+ * Tells if is connected to the server
+ * @function
+ * @public
+ * @returns 0 if not connected
+ */
+int is_connected(void);
+
+/**
  * Sends a message to that socket
  * 
  * @function

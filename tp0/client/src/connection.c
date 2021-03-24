@@ -61,6 +61,9 @@ typedef struct Package
     buffer_t *buffer;
 } package_t;
 
+// Global Variable connected - Has value of -1 if not connected
+static int gv_connected;
+
 // ============================================================================================================
 //                               ***** Private Functions Declarations *****
 // ============================================================================================================
@@ -219,12 +222,16 @@ int connect_to(char *iv_ip, char *iv_port)
     int ev_client_socket = socket(ls_server_info->ai_family, ls_server_info->ai_socktype, ls_server_info->ai_protocol);
 
     // Checks connection
-    if (connect(ev_client_socket, ls_server_info->ai_addr, ls_server_info->ai_addrlen) == ERROR)
-        printf("error");
+    gv_connected = connect(ev_client_socket, ls_server_info->ai_addr, ls_server_info->ai_addrlen);
 
     freeaddrinfo(ls_server_info);
 
     return ev_client_socket;
+}
+
+int is_connected(void)
+{
+    return gv_connected != ERROR;
 }
 
 ssize_t send_message(char *iv_message, int iv_socket)
