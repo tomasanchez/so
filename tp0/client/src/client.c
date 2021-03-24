@@ -35,6 +35,9 @@ typedef struct Client
     bool connected;
 } client_t;
 
+// Client has detected no connection
+#define NO_CONNECTION -2
+
 // Global Structure Program - the client program itself.
 static client_t gs_program;
 
@@ -69,6 +72,15 @@ static bool client_connect(void);
  */
 static int client_finish(void);
 
+/**
+ * Calls free connection function
+ * 
+ * @function
+ * @private
+ * @returns the close socket return
+ */
+static int client_disconnect(void);
+
 // ============================================================================================================
 //                               ***** Private Functions Definitions *****
 // ============================================================================================================
@@ -95,6 +107,11 @@ static bool client_connect(void)
         logger_log("Could not connect to server", LOG_LEVEL_ERROR);
 
     return gs_program.connection > 0;
+}
+
+static int client_disconnect(void)
+{
+    return is_connected() ? disconnect(gs_program.connection) : NO_CONNECTION;
 }
 
 static int client_finish(void)
@@ -127,6 +144,7 @@ void client_read(void)
 
 int client_end(void)
 {
+    client_disconnect();
     client_finish();
     logger_end();
 

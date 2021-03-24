@@ -26,6 +26,16 @@
 int connect_to(char *, char *);
 
 /**
+ * Disconnects the given socket
+ * 
+ * @function
+ * @public
+ * @param iv_socket the socket to free its connection
+ * @return the socket close return
+ */
+int disconnect(int);
+
+/**
  * Tells if is connected to the server
  * @function
  * @public

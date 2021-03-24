@@ -229,6 +229,11 @@ int connect_to(char *iv_ip, char *iv_port)
     return ev_client_socket;
 }
 
+int disconnect(int iv_socket)
+{
+    return close(iv_socket);
+}
+
 int is_connected(void)
 {
     return gv_connected != ERROR;
