@@ -12,8 +12,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include <assert.h>
 #include <commons/log.h>
 
@@ -29,10 +27,11 @@ void logger_start(void);
  * Logs an entry from console.
  * 
  * @function
+ * @param ev_line a line to cpy the input string
  * @returns wheter an empty string has been read
  * @public
  */
-bool logger_console_log(void);
+bool logger_console_log(char **);
 
 /**
  * Ends cycle of logger.

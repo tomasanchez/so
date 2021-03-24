@@ -9,6 +9,8 @@
  */
 
 #include "logger.h"
+#include <readline/readline.h>
+#include <readline/history.h>
 
 // ============================================================================================================
 //                               ***** Logger Definitions *****
@@ -59,7 +61,7 @@ static t_log *logger_init(void)
 //                               ***** Public Functions Definitions *****
 // ============================================================================================================
 
-bool logger_console_log(void)
+bool logger_console_log(char **ev_line)
 {
     // Exporting Variable End - is end of program?
     bool ev_is_empty = false;
@@ -70,7 +72,12 @@ bool logger_console_log(void)
     ev_is_empty = strcmp(lv_line, EMPTY_STR) ? false : true;
 
     if (!ev_is_empty)
+    {
         log_info(gs_logger, lv_line);
+        // Store the line read - Remember to free it.
+        *ev_line = calloc(sizeof(char), strlen(lv_line) + 1);
+        strcpy(*ev_line, lv_line);
+    }
 
     free(lv_line);
 
