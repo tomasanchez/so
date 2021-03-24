@@ -31,7 +31,8 @@ typedef struct Client
     bool running;
     // stream - a buffer for strings
     char **stream;
-
+    // connected - if is connected to server;
+    bool connected;
 } client_t;
 
 // Global Structure Program - the client program itself.
@@ -87,6 +88,12 @@ static int client_init(void)
 static bool client_connect(void)
 {
     gs_program.connection = connect_to(gs_program.config_options.ip, gs_program.config_options.port);
+
+    if (is_connected())
+        logger_log("Connected to server", LOG_LEVEL_INFO);
+    else
+        logger_log("Could not connect to server", LOG_LEVEL_ERROR);
+
     return gs_program.connection > 0;
 }
 
@@ -104,7 +111,7 @@ int client_start(void)
 {
     logger_start();
     client_init();
-
+    client_connect();
     return 0;
 }
 
