@@ -60,8 +60,24 @@ static t_log *logger_init(void)
 // ============================================================================================================
 //                               ***** Public Functions Definitions *****
 // ============================================================================================================
+void logger_log(const char *iv_log, t_log_level iv_level)
+{
+    switch (iv_level)
+    {
+    case LOG_LEVEL_ERROR:
+        log_error(gs_logger, iv_log);
+        break;
+    case LOG_LEVEL_WARNING:
+        log_warning(gs_logger, iv_log);
+    case LOG_LEVEL_INFO:
+        log_info(gs_logger, iv_log);
+    default:
+        log_debug(gs_logger, iv_log);
+        break;
+    }
+}
 
-bool logger_console_log(char **ev_line)
+bool logger_console_log(char **iv_line)
 {
     // Exporting Variable End - is end of program?
     bool ev_is_empty = false;
@@ -75,8 +91,8 @@ bool logger_console_log(char **ev_line)
     {
         log_info(gs_logger, lv_line);
         // Store the line read - Remember to free it.
-        *ev_line = calloc(sizeof(char), strlen(lv_line) + 1);
-        strcpy(*ev_line, lv_line);
+        *iv_line = calloc(sizeof(char), strlen(lv_line) + 1);
+        strcpy(*iv_line, lv_line);
     }
 
     free(lv_line);
