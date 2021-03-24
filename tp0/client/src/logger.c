@@ -69,8 +69,10 @@ void logger_log(const char *iv_log, t_log_level iv_level)
         break;
     case LOG_LEVEL_WARNING:
         log_warning(gs_logger, iv_log);
+        break;
     case LOG_LEVEL_INFO:
         log_info(gs_logger, iv_log);
+        break;
     default:
         log_debug(gs_logger, iv_log);
         break;
