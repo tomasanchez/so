@@ -43,7 +43,7 @@ typedef enum Opcode
 typedef struct Buffer
 {
     // The size of stream
-    size_t size;
+    int size;
     // The stream itself
     void *stream;
 } buffer_t;
@@ -159,7 +159,8 @@ static void *package_serialize(package_t *is_package)
     int lv_bytes = package_get_bytes(is_package);
 
     // Exporting package - the serialized package
-    void *e_package = malloc(lv_bytes);
+    void *e_package = NULL;
+    e_package = malloc(lv_bytes);
     // Local variable offset - the offset in the stream
     int lv_offset = 0;
 
@@ -168,12 +169,12 @@ static void *package_serialize(package_t *is_package)
      *          [ OPCODE ][ SIZE OF MSG ][ MSG ]
      */
     memcpy(e_package + lv_offset, &(is_package->code), sizeof(int));
-    lv_offset += sizeof(opcode_t);
+    lv_offset += sizeof(int);
 
     memcpy(e_package + lv_offset, &(is_package->buffer->size), sizeof(int));
     lv_offset += sizeof(int);
 
-    memcpy(e_package + lv_offset, &(is_package->buffer->stream), is_package->buffer->size);
+    memcpy(e_package + lv_offset, is_package->buffer->stream, is_package->buffer->size);
     lv_offset += is_package->buffer->size;
 
     return e_package;
