@@ -29,8 +29,8 @@ typedef struct Client
     int connection;
     // running - if is runnig
     bool running;
-    // stream - a buffer for strings
-    char **stream;
+    // message - a buffer for strings
+    char **message;
     // connected - if is connected to server;
     bool connected;
 } client_t;
@@ -92,7 +92,7 @@ static int client_init(void)
     // At first is runnig
     gs_program.running = true;
     gs_program.config_options = config_options_init();
-    gs_program.stream = malloc(sizeof(char *));
+    gs_program.message = malloc(sizeof(char *));
 
     return 0;
 }
@@ -117,7 +117,7 @@ static int client_disconnect(void)
 static int client_finish(void)
 {
     config_options_finish(&gs_program.config_options);
-    free(gs_program.stream);
+    free(gs_program.message);
     return 0;
 }
 // ============================================================================================================
@@ -139,7 +139,7 @@ bool client_is_running(void)
 
 void client_read(void)
 {
-    gs_program.running = !logger_console_log(gs_program.stream);
+    gs_program.running = !logger_console_log(gs_program.message);
 }
 
 int client_end(void)
