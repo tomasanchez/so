@@ -73,6 +73,15 @@ static bool client_connect(void);
 static int client_finish(void);
 
 /**
+ * Frees memory utilized by client message.
+ * 
+ * @function
+ * @private
+ * @returns 0 if message was deleted
+ */
+static int client_delete_message(void);
+
+/**
  * Calls free connection function
  * 
  * @function
@@ -115,6 +124,13 @@ static int client_disconnect(void)
     return is_connected() ? disconnect(gs_program.connection) : NO_CONNECTION;
 }
 
+static int client_delete_message(void)
+{
+    free(*gs_program.message);
+    *gs_program.message = NULL;
+    return 0;
+}
+
 static int client_finish(void)
 {
     config_options_finish(&gs_program.config_options);
@@ -145,16 +161,20 @@ void client_read(void)
 
 int client_send_message(void)
 {
+    // Local Variable bytes sent - the number of bytes send
     int lv_bytes_sent = 0;
+
+    // Pattern matching - quick return
+    if (!client_is_running())
+        return 0;
 
     if (is_connected() && has_message(*gs_program.message))
         lv_bytes_sent = send_message(*gs_program.message, gs_program.connection);
     else
         logger_log("Message could not be sent, CLIENT is NOT CONNECTED", LOG_LEVEL_ERROR);
 
-    // Free the message previously
-    if (has_message(*gs_program.message))
-        free(*gs_program.message);
+    // Forget message
+    client_delete_message();
 
     return lv_bytes_sent > 0;
 }
