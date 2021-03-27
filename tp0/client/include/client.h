@@ -43,6 +43,15 @@ bool client_is_running(void);
 void client_read(void);
 
 /**
+ * Sends the read message to the server
+ * 
+ * @function
+ * @public
+ * @returns if message was sent or not
+ */
+int client_send_message(void);
+
+/**
  * Finishes the Client program.
  * 
  * @function

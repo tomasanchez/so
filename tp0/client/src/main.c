@@ -17,6 +17,7 @@ int main(void)
     while (client_is_running())
     {
         client_read();
+        client_send_message();
     }
 
     client_end();

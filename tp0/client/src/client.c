@@ -93,6 +93,7 @@ static int client_init(void)
     gs_program.running = true;
     gs_program.config_options = config_options_init();
     gs_program.message = malloc(sizeof(char *));
+    *gs_program.message = NULL;
 
     return 0;
 }
@@ -140,6 +141,21 @@ bool client_is_running(void)
 void client_read(void)
 {
     gs_program.running = !logger_console_log(gs_program.message);
+}
+
+int client_send_message(void)
+{
+    int lv_bytes_sent = 0;
+
+    if (is_connected())
+        lv_bytes_sent = send_message(*gs_program.message, gs_program.connection);
+    else
+        logger_log("Message could not be sent, CLIENT is NOT CONNECTED", LOG_LEVEL_ERROR);
+
+    // Free the message previously
+    free(*gs_program.message);
+
+    return lv_bytes_sent > 0;
 }
 
 int client_end(void)
