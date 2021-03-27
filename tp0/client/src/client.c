@@ -147,13 +147,14 @@ int client_send_message(void)
 {
     int lv_bytes_sent = 0;
 
-    if (is_connected())
+    if (is_connected() && has_message(*gs_program.message))
         lv_bytes_sent = send_message(*gs_program.message, gs_program.connection);
     else
         logger_log("Message could not be sent, CLIENT is NOT CONNECTED", LOG_LEVEL_ERROR);
 
     // Free the message previously
-    free(*gs_program.message);
+    if (has_message(*gs_program.message))
+        free(*gs_program.message);
 
     return lv_bytes_sent > 0;
 }

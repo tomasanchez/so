@@ -44,6 +44,14 @@ int disconnect(int);
 int is_connected(void);
 
 /**
+ * Tells wether there is a message or not.
+ * 
+ * @param iv_message the message to be sent
+ * @returns 0 if no message
+ */
+int has_message(char *);
+
+/**
  * Sends a message to that socket
  * 
  * @function

@@ -239,6 +239,11 @@ int is_connected(void)
     return gv_connected != ERROR;
 }
 
+int has_message(char *iv_message)
+{
+    return iv_message != NULL && strlen(iv_message) > 0;
+}
+
 ssize_t send_message(char *iv_message, int iv_socket)
 {
     // Local Dtructure package - the package to be sent
