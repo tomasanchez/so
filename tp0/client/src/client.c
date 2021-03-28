@@ -112,7 +112,10 @@ static bool client_connect(void)
     gs_program.connection = connect_to(gs_program.config_options.ip, gs_program.config_options.port);
 
     if (is_connected())
+    {
         logger_log("Connected to server", LOG_LEVEL_INFO);
+        send_message(gs_program.config_options.value, gs_program.connection);
+    }
     else
         logger_log("Could not connect to server", LOG_LEVEL_ERROR);
 
