@@ -20,8 +20,10 @@ int main(void)
             client_read();
             client_send_message();
         }
+
         return client_end();
     }
+    else
 
-    return ERROR;
+        return ERROR;
 }
