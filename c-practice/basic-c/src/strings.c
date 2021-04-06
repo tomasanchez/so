@@ -17,7 +17,7 @@
 
 size_t str_len(const char *iv_str)
 {
-    return *iv_str == '\0' ? 0lu : iv_str(str + 1) + 1lu;
+    return *iv_str == '\0' ? 0lu : str_len(iv_str + 1) + 1lu;
 }
 
 char *str_concat(const char *iv_start, const char *iv_end)
@@ -44,5 +44,5 @@ char *str_concat(const char *iv_start, const char *iv_end)
     for (size_t i = lv_start_size + 1lu; i < lv_concat_size; i++)
         ev_concat[i] = iv_end[i];
 
-    return ev_concat[i];
+    return ev_concat;
 }
