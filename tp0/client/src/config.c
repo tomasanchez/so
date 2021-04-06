@@ -22,8 +22,6 @@
 #define VALUE_KEY "VALUE"
 // CONFIG_PATH the config file path
 #define CONFIG_PATH "config/config.cfg"
-// STR_SIZE a standard size for configurations strings
-#define STR_SIZE 32
 
 // ============================================================================================================
 //                               ***** Private Functions Declarations *****
@@ -39,15 +37,6 @@
  * @returns es_config the allocated config optios.
  */
 static config_options_t config_options_create(void);
-
-/**
- * Reads configuration file.
- * 
- * @function
- * @private
- * @param is_config the configuration option
- */
-static void config_options_load(config_options_t *);
 
 /**
  * Prints the loaded configuration
@@ -69,34 +58,16 @@ static config_options_t config_options_create(void)
 
     es_config.config = config_create(CONFIG_PATH);
     assert(es_config.config != NULL);
-    // Corresponding allocations
-    es_config.ip = calloc(sizeof(char), STR_SIZE);
-    es_config.port = calloc(sizeof(char), STR_SIZE);
-    es_config.value = calloc(sizeof(char), STR_SIZE);
-
-    // End of allocations.
-
     return es_config;
-}
-
-static void config_options_load(config_options_t *is_config)
-{
-    // Config file read
-    is_config->ip = strcpy(is_config->ip, config_get_string_value(is_config->config, IP_KEY));
-    is_config->value = strcpy(is_config->value, config_get_string_value(is_config->config, VALUE_KEY));
-    is_config->port = strcpy(is_config->port, config_get_string_value(is_config->config, PORT_KEY));
-
-    // As config file is no longer needes, better to destroy it.
-    config_destroy(is_config->config);
 }
 
 static void config_options_print(const config_options_t *is_config)
 {
     puts("\n========================= GLOBAL CONFIGURATION ==============================");
-    printf("IP= %s\n", is_config->ip);
-    printf("PORT= %s\n", is_config->port);
-    printf("VALUE= %s\n", is_config->value);
-    puts("=============================================================================");
+    printf("IP= %s\n", (const char *)config_get_ip(is_config));
+    printf("PORT= %s\n", (const char *)config_get_port(is_config));
+    printf("VALUE= %s\n", (const char *)config_get_value(is_config));
+    puts("=============================================================================\n");
 }
 
 // ============================================================================================================
@@ -108,19 +79,28 @@ config_options_t config_options_init(void)
     // Exporting Structure config, the created config options
     config_options_t es_config = config_options_create();
 
-    // Read config options
-    config_options_load(&es_config);
-
     // DEBUG ONLY: print loaded config
     config_options_print(&es_config);
 
     return es_config;
 }
 
+char *config_get_ip(const config_options_t *is_config)
+{
+    return config_get_string_value(is_config->config, IP_KEY);
+}
+
+char *config_get_port(const config_options_t *is_config)
+{
+    return config_get_string_value(is_config->config, PORT_KEY);
+}
+
+char *config_get_value(const config_options_t *is_config)
+{
+    return config_get_string_value(is_config->config, VALUE_KEY);
+}
+
 void config_options_finish(config_options_t *is_config)
 {
-    // Corresponding de-allocations
-    free(is_config->ip);
-    free(is_config->port);
-    free(is_config->value);
+    config_destroy(is_config->config);
 }

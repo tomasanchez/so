@@ -109,12 +109,12 @@ static int client_init(void)
 
 static bool client_connect(void)
 {
-    gs_program.connection = connect_to(gs_program.config_options.ip, gs_program.config_options.port);
+    gs_program.connection = connect_to(config_get_ip(&gs_program.config_options), config_get_port(&gs_program.config_options));
 
     if (is_connected())
     {
         logger_log("Connected to server", LOG_LEVEL_INFO);
-        send_message(gs_program.config_options.value, gs_program.connection);
+        send_message(config_get_value(&gs_program.config_options), gs_program.connection);
     }
     else
         logger_log("Could not connect to server", LOG_LEVEL_ERROR);

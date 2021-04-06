@@ -27,12 +27,7 @@ typedef struct Config
 {
     // t_config the configuration file
     t_config *config;
-    // ip the IP to connect
-    char *ip;
-    // port the port where to listen
-    char *port;
-    // value the default value to be sent
-    char *value;
+
 } config_options_t;
 
 /**
@@ -45,6 +40,36 @@ typedef struct Config
  * @returns es_config the loaded Configuration Options
  */
 config_options_t config_options_init(void);
+
+/**
+ * Obtains strring value of Port. 
+ * 
+ * @function
+ * @public
+ * @param is_config the configuration structure
+ * @returns the corresponding string value
+ */
+char *config_get_port(const config_options_t *);
+
+/**
+ * Obtains strring value of IP. 
+ * 
+ * @function
+ * @public
+ * @param is_config the configuration structure
+ * @returns the corresponding string value
+ */
+char *config_get_ip(const config_options_t *);
+
+/**
+ * Obtains strring value of Key. 
+ * 
+ * @function
+ * @public
+ * @param is_config the configuration structure
+ * @returns the corresponding string value
+ */
+char *config_get_value(const config_options_t *);
 
 /**
  * Ends cycle of life of config options
