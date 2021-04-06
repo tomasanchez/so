@@ -15,6 +15,13 @@
 #include "logger.h"
 #include "config.h"
 
+// Equals
+#define EQ ==
+// No Error
+#define OK 0
+// Error
+#define ERROR -1
+
 /**
  * Initialices the Client program.
  * 

@@ -12,14 +12,16 @@
 
 int main(void)
 {
-    client_start();
 
-    while (client_is_running())
+    if (client_start() EQ OK)
     {
-        client_read();
-        client_send_message();
+        while (client_is_running())
+        {
+            client_read();
+            client_send_message();
+        }
+        return client_end();
     }
 
-    client_end();
-    return 0;
+    return ERROR;
 }
