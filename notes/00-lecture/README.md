@@ -59,6 +59,8 @@
 - A C-program which simulates aspects of Operating Systems
 - Technologies: ANSI-C, Linux (Ubuntu)
 
+<hr>
+
 ### Computer Architecture
 
 #### Hardware
@@ -103,3 +105,57 @@ Mechanism which allows I/O modules to interrupt execution flow.
 **Priorities**
 
 ![Execution cycle with interuptions](./images/exec_cycle3.png)
+
+<hr>
+
+### Introduction to Operating Systems
+
+#### What's an operating system?
+
+- It's a software.
+- Manages Resources
+  - Hardware
+  - Applications
+- Security Manager
+- Interface between User and Program
+- Manages itself
+
+**Kernels**
+
+**Distributions**
+
+#### System structure
+
+|        Level         |      User       |
+| :------------------: | :-------------: |
+| Programs & Libraries |    End user     |
+|   Operating System   | App's Developer |
+|       Hardware       |  OS' Developer  |
+
+#### Security
+
+**Types of Instructions**
+
+- Priviliged (ex. IO, CLI)
+- Commons (ex. MOV, ADD, JMP)
+
+**Execution mode**
+
+- User
+- Kernel
+
+#### Syscall
+
+Mechanism which allow programs to solicite services to the OS (hardware access, program creation, etc).
+
+![Syscall Architecture](./images/syscall.png)
+
+When a syscall is executed, produces a mode switch which also includes context switch.
+
+**Wrapperss**
+
+Examples in C, `fopen` (original syscall `open` in _Linux_ and `OpenFile` in _Windowss_ ), `printf` (syscall `write` in _Linux_)
+
+- Simplicity
+- Portability
+- Eficiency
