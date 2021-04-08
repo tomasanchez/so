@@ -13,6 +13,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Equals
+#define EQ ==
+// Not Equals
+#define NEQ !=
+// Error
+#define ERROR -1
+
 /**
  * 
  * Joins two strings.
