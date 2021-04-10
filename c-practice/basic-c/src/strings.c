@@ -33,18 +33,26 @@ char *str_concat(const char *iv_start, const char *iv_end)
     char *ev_concat = calloc(sizeof(char), lv_concat_size);
 
     //Avoiding jumps on uninitialized values
-    for (size_t i = 0; i <= lv_concat_size; i++)
+    for (size_t i = 0; i < lv_concat_size; i++)
         ev_concat[i] = '\0';
 
     // Copying start
-    for (size_t i = 0; i <= lv_start_size; i++)
+    for (size_t i = 0; i < lv_start_size; i++)
         ev_concat[i] = iv_start[i];
 
     // Copying end
     for (size_t i = lv_start_size, j = 0; i < lv_concat_size; i++, j++)
         ev_concat[i] = iv_end[j];
 
-    puts(ev_concat);
-
     return ev_concat;
+}
+
+void str_concat_dynamic(const char *iv_start, const char *iv_end, char **iv_concat)
+{
+    // if there is alredy a string, delete it
+    if (*iv_concat)
+        free(*iv_concat);
+
+    // Local Variable concat - the concatenation
+    *iv_concat = str_concat(iv_start, iv_end);
 }
