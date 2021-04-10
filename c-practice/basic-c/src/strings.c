@@ -9,7 +9,7 @@
  */
 
 #include <stdlib.h>
-#include "strings.h"
+#include "str.h"
 
 // ============================================================================================================
 //                               ***** Public Functions Definitions *****

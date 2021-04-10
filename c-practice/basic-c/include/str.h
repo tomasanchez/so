@@ -16,7 +16,7 @@
 // Equals
 #define EQ ==
 // Not Equals
-#define NEQ !=
+#define NE !=
 // Error
 #define ERROR -1
 

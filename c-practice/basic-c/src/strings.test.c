@@ -8,7 +8,7 @@
  * @since 04.02.2021
  */
 
-#include "strings.h"
+#include "str.h"
 #include <string.h>
 #include <assert.h>
 
