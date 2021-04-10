@@ -12,7 +12,7 @@ OUTPUT = tp0.exe
 LEAKS = log/leaks.log
 HELGRIND = log/threads.log
 
-all : compile debug leaks threads clean 
+all : compile
 .PHONY: all
 
 compile:

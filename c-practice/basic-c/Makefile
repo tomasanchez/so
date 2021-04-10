@@ -12,8 +12,7 @@ OUTPUT = basics.exe
 LEAKS = log/leaks.log
 HELGRIND = log/threads.log
 
-all : compile debug leaks threads clean 
-.PHONY: all
+.PHONY: compile
 
 compile:
 	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) $(LIBS) -o $(OUTPUT)
