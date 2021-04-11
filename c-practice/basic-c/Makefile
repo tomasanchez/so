@@ -17,6 +17,9 @@ HELGRIND = log/threads.log
 compile:
 	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) $(LIBS) -o $(OUTPUT)
 
+run:
+	$(MAKE) compile && ./$(OUTPUT)
+
 debug:
 	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) $(LIBS) -o $(OUTPUT) && gdb -se $(OUTPUT)
 	
