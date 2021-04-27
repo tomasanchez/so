@@ -6,8 +6,9 @@
   - 2 States
   - 5 States
   - 7 States
-- Status in Linux
-- Syscalls and Process blocking
+- States in Linux
+- Syscalls
+- Process Switch
 
 ## Process
 
@@ -27,7 +28,7 @@
 
 Even though the `process` is _suspended_, `PCB` is **never** on disk, always on memory until process _exists_.
 
-### Status in Linux
+### States in Linux
 
 When running `ps`
 
@@ -43,8 +44,36 @@ X:    dead (should never be seen)
 Z:    defunct ("zombie") process, terminated but not reaped by its parent
 ```
 
+## Syscall
+
 |                                        | Blocking |             Non-blocking             |
 | :------------------------------------- | :------: | :----------------------------------: |
 | Operation can be executed immediatly   | Operates |               Operates               |
 | Operation may take a while (undefined) |  Blocks  | No operates, but continues execution |
 | Return values                          | OK/ERROR |           OK/ERROR/RE-TRY            |
+
+## Process Switch
+
+**When does it occur?**
+
+Whenever OS recover control after:
+
+- Syscall
+- Interruption (hw/sw)
+
+Process Context, within the PCB, is saved during this operation.
+
+### Steps
+
+1. Interruption
+2. HW: SO-Stack <-- PC and PSW (save process context)
+3. HW: PC <-- SO routine && **mode switch** (user to kernel)
+4. SO: Stack <-- other registers (rest of context)
+5. SO: Decides to **switch process**
+6. SO: A's PCB <-- PC, PSW and rest (from SO-Stack)
+7. SO: A's PCB.state <-- _Ready_
+8. SO: Ready Queue <-- A's PCB
+9. SO: Selec other process: _B_
+10. SO: B's PCB.state <-- _Running_
+11. SO: Memory Management register <-- B's limits
+12. SO: Processor state <-- PCB's B (PC, PSW, etc) && **mode switch**( kernel to user)
