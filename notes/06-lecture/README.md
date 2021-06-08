@@ -4,6 +4,14 @@
 
 - Introduction
 - Requirements
+- Physical and Logic Addresses
+- Memory Assigmnet for Processes
+  - Fixed
+  - Dynamic
+- Algorithms
+- Segmentation
+- Pagination
+- Segmented Pagination
 
 ## Introduction
 
