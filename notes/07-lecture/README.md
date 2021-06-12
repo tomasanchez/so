@@ -116,3 +116,84 @@ Requieres an access to disk for each writting and reading
 - Cache for Table of Pages
 
 ![TLB](images/table-structure-3.png)
+
+### Operating System design
+
+> Stallings: Operating System - Section 8.2
+
+- Hardware
+  - Supports (or not) virtual memory
+  - Supports (or not) pagination
+
+#### Policies
+
+##### Fetch
+
+- Demand paging
+- Prepaging
+
+##### Placement
+
+- Pure segmentation
+  - Algorithms (Best Fit, First fit, Next fit, Worst fit)
+
+#### Replacement
+
+- Frames blocking
+
+  > Some of the frames in main memory may be locked. When a frame is locked, the page currently stored in that frame may not be replaced. Locking is achieved by associating a lock bit with each frame. This bit may be kept in a frame table as well as being included in the current page table.
+
+##### Algorithms
+
+- **Optimal**
+  - selects for replacement that page for which the time to the next reference is the longest (or does not exist)
+  - It can be shown that this policy results in
+    the fewest number of page faults
+- **First-in-first-out** (_FIFO_)
+
+  - treats the page frames allocated to a process as a circular buffer, and pages are removed in round-robin style.
+
+- **Least recently used** (_LRU_)
+
+  - replaces the page in memory that has not
+    been referenced for the longest time
+  - By the **`Principle of Locality`** , this should be the
+    page least likely to be referenced in the near future
+
+- **Clock**
+  - The simplest form of clock policy requires the association of an additional bit with each frame, referred to as the use bit.
+- **Improved Clock**
+  - Requieres
+    - Pointer to next frame
+    - Double bit (used and modified)
+  - Algorithm
+    - Searches for bits `u=0 m=0` not used and not modified
+      - Does not mark usage bit during first iteration
+
+##### Considerations
+
+- Overpagination / Trashing
+
+More processes in memory and less frames per process `->` More **Page Faults** `->` Lower CPU usage `->` Increases **multiprogramming grade**
+
+#### Resident Set Management
+
+> The `Resident Set` is the portion of a process that is actually in main memory at any time is defined to be the resident set of the process.
+> ![Resident management](images/resident-set.png)
+
+> NOTE: It is not possible as long as process are not at maximum
+
+#### Cleaning
+
+A cleaning policy is the opposite of a fetch policy; it is concerned with determining when a modified page should be written out to secondary memory.
+
+- Demand cleaning
+  > a page is written out to secondary memory only when it has been selected for replacement.
+- Precleaning
+  > writes modified pages before their page frames are needed so pages can be written out in batches.
+
+#### Considerations
+
+- Page sharing (copy during writting)
+  - Pagination allows memory share
+  - `fork()`
