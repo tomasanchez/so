@@ -29,3 +29,28 @@
 - Owner
 
 >NOTE: Name is Location
+
+### Operations
+
+#### Basics
+
+- Create
+- Delete
+- Open
+- Close
+- Read
+- Write
+- Rename
+- Reposicioante
+- Trunk
+
+#### Combined
+
+- Copy
+- Rename (move)
+
+### Openning
+
+- Mode
+- Open Files Global Table
+- Process' Open File Table
