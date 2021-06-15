@@ -109,3 +109,13 @@ void process2(){
   // Does throw FAILURE
 }
 ```
+
+### Paths
+
+#### Absolute
+
+Example: `/home/utnso/README.md`
+
+#### Relative
+
+Relative to `Working directory`.
