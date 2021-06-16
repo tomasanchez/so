@@ -19,7 +19,7 @@
 
 > Metada
 
-- Name*
+- Name\*
 - Size
 - Id (inode)
 - Permits
@@ -28,7 +28,7 @@
 - Location
 - Owner
 
->NOTE: Name is Location
+> NOTE: Name is Location
 
 ### Operations
 
@@ -119,3 +119,19 @@ Example: `/home/utnso/README.md`
 #### Relative
 
 Relative to `Working directory`.
+
+## Mount Point
+
+Refers to make available certain files to the system.
+
+## Protection
+
+- Total Access
+  - _No_ protection
+- Restringed Access
+  - File has owner
+- Controlled Access (permissions)
+  - Not only has owner (or group), but also differents permissions
+  - Access Matrix
+  - Access Control List
+  - Passwords
