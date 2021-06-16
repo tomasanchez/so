@@ -15,6 +15,10 @@
 
 > A file is bytes with meaning
 
+A file system is a specification of _How_ files are stored, and which operations can be done over those data files.
+
+Then an implementation is a _program_ which knows that _specification_.
+
 ### Attributes
 
 > Metada
@@ -135,3 +139,21 @@ Refers to make available certain files to the system.
   - Access Matrix
   - Access Control List
   - Passwords
+
+## Logic Disk
+
+![Logic Disk](images/logic-disk.png)
+
+Minimum unit of lecture/writting in a magnetic disk is a **`sector`**, in a _Logic Disk_ it is a **`Block`**
+
+### Partitions
+
+![Partitions](images/partitions.png)
+
+```
+Storage devices
+```
+
+### Volume
+
+![Volume](images/volume.png)
