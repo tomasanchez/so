@@ -236,4 +236,56 @@ File Type | Name & Extension | First Clauster | File | ...
 > - Max Fs size (Real with 500gb Disk) = `500GB`
 > - Max Fs size (Real with 1TB Diks) = `512GB`
 
-> NOTE:
+## Unix File Syste (UFS)
+
+> EXT2/EXT3
+
+- Volume (UFS) in partition
+
+```
+Boot Blocks | Block Group 0 | ... | Block Group  N
+```
+
+```
+SUPER BLOCK | Group Descriptor | Inode Bitmap | Inode Table | Data Blocks
+```
+
+- Directories contain a file list and included directories
+
+```
+Inode ID | File Name | File Type
+```
+
+> Note `Inode ID` is NOT an attribute
+
+### Table
+
+![UFS](images/ufs.png)
+
+### Inode
+
+- Creates pointers on demand using data blocks
+- Types
+  - Direct: points to data block
+  - Indirect: points to another pointer block
+    - Simple
+    - Double
+    - Triple
+
+> Exercise Example
+> `Pointers number` = `Block size` / `Pointer Size`
+> Example:
+>
+> - Block size = 1KB
+> - Pointer size = 4 bytes
+> - Pointers number = 256
+
+### Links
+
+#### Soft Link (or Symbolic Link)
+
+![Soft Link](images/softlink.png)
+
+#### Hard Link
+
+![Hard Link](images/hardlink.png)
