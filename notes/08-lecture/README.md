@@ -157,3 +157,83 @@ Storage devices
 ### Volume
 
 ![Volume](images/volume.png)
+
+## Structure
+
+- Booting block
+- File Control block (FCB)
+- Volume control block
+- Directory structure
+  - Directory entries: file names + attributes or FCB pointer
+
+### Memory Structures
+
+- Mounting Table
+- Directories structures
+- Open Files Global Table (or List)
+- Process Open Files Table (or List)
+
+### Directories Implementation
+
+- Lineas list
+- Ordered list
+- Tree
+- Hash table
+
+### Assignment methods
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include <unistd.h>
+
+void my_function(int *numero);
+int g_var;
+
+int main(void) {
+  int i;
+  int threads = 10;
+  g_var = 0;
+
+  pthread_t tid[threads][2];
+
+  for (i = 0; i < threads; i++) {
+    tid[i][1] = i+1;
+    pthread_create(&tid[i][0], NULL, (void*)my_function, &tid[i][1]);
+  }
+
+  // Await all threads to end
+
+  for (i = 0; i < threads; i++) {
+    pthread_join(tid[i][0], NULL);
+  }
+  return EXIT_SUCCESS;
+}
+```
+
+## File Allocation System (FAT)
+
+- Directories contain a file list and included directories
+
+```
+File Type | Name & Extension | First Clauster | File | ...
+```
+
+### Table
+
+![FAT](images/fat.png)
+
+- FAT12: 12-bit pointers
+- FAT16: 16-bit pointers
+- FAT32: 32-bit pointers (28 usable)
+
+> Exercise Example
+>
+> - FAT32
+> - CLuster Size 2 KB
+> - MAX FileSystem size (theorically) = `2^28` \* `2^11` = `2^39` = `512GB`
+> - Max Fs size (Real with 500gb Disk) = `500GB`
+> - Max Fs size (Real with 1TB Diks) = `512GB`
+
+> NOTE:
