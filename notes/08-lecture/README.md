@@ -228,6 +228,8 @@ File Type | Name & Extension | First Clauster | File | ...
 - FAT16: 16-bit pointers
 - FAT32: 32-bit pointers (28 usable)
 
+In order to get the Nth cluster, it requires to iterate the table (linked)
+
 > Exercise Example
 >
 > - FAT32
@@ -261,6 +263,8 @@ Inode ID | File Name | File Type
 ### Table
 
 ![UFS](images/ufs.png)
+
+Uses index to geth the Nth cluster.
 
 ### Inode
 
