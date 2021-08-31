@@ -16,6 +16,7 @@ all : compile
 .PHONY: all
 
 compile:
+	@mkdir -p ./log
 	$(CC) $(CFLAGS) $(SOURCES) $(INCLUDES) $(LIBS) -o $(OUTPUT)
 
 debug:
